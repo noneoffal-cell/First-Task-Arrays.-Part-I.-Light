@@ -2,7 +2,7 @@ package app.entity;
 
 public class IntArray {
 
-    private int[] array;
+    private final int[] array;  // final prohibits reassignment
 
     public int[] getArray() {
         return array.clone();

@@ -18,13 +18,18 @@ import app.service.impl.FindMaxMinServiceImpl;
 import app.service.impl.InsertionSortServiceImpl;
 import app.validator.ArrayValidator;
 import app.validator.impl.ArrayValidatorImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
+import java.util.Arrays;
 
 public class Main {
+
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(String[] args)
             throws FileReadingException, InvalidArrayDataException {
@@ -58,22 +63,20 @@ public class Main {
                 IntArray bubbleSorted = bubbleSortService.sort(array);
                 IntArray insertionSorted = insertionSortService.sort(array);
 
-                System.out.println("Input: " + line);
-                System.out.println("Max: " + max);
-                System.out.println("Min: " + min);
-                System.out.println("Sum: " + sum);
-                System.out.println("Average: " + average);
-                System.out.println(
-                        "Bubble sort: "
-                                + java.util.Arrays.toString(
-                                bubbleSorted.getArray()));
-                System.out.println(
-                        "Insertion sort: "
-                                + java.util.Arrays.toString(
-                                insertionSorted.getArray()));
-                System.out.println();
+                LOGGER.info("Input: {}", line);
+                LOGGER.info("Max: {}", max);
+                LOGGER.info("Min: {}", min);
+                LOGGER.info("Sum: {}", sum);
+                LOGGER.info("Average: {}", average);
+                LOGGER.info(
+                        "Bubble sort: {}",
+                        Arrays.toString(bubbleSorted.getArray()));
+                LOGGER.info(
+                        "Insertion sort: {}",
+                        Arrays.toString(insertionSorted.getArray()));
+                LOGGER.info("");
             } else {
-                System.out.println("Invalid data: " + line);
+                LOGGER.error("Invalid data: {}", line);
             }
         }
     }

@@ -39,7 +39,7 @@ public class ArrayValidatorImpl implements ArrayValidator {
     private boolean checkData(String data) {
         if (data.trim().isEmpty()) {
             LOGGER.warn("Array data is empty");
-            return false;
+            return true;
         }
 
         Matcher matcher = VALID_DATA_PATTERN.matcher(data);

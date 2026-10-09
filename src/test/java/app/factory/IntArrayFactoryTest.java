@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class IntArrayFactoryTest {
 
+    // given
     private static final int[] VALUES = {1, 2, 3};
     private static final int[] SINGLE_VALUE = {42};
     private static final int[] NEGATIVE_VALUES = {-5, 0, 7, -1};
@@ -68,5 +69,18 @@ class IntArrayFactoryTest {
         // then
         int[] actualValues = actual.getArray();
         assertArrayEquals(EMPTY_VALUES, actualValues);
+    }
+
+    @Test
+    void createShouldNotBeAffectedByChangesToOriginalArray() {
+        // given
+        int[] values = {1, 2, 3};
+
+        // when
+        IntArray actual = factory.create(values);
+        values[0] = 99;
+
+        // then
+        assertArrayEquals(VALUES, actual.getArray());
     }
 }

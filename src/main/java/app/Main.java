@@ -64,10 +64,10 @@ public class Main {
                 IntArray insertionSorted = insertionSortService.sort(array);
 
                 LOGGER.info("Input: {}", line);
-                LOGGER.info("Max: {}", max);
-                LOGGER.info("Min: {}", min);
-                LOGGER.info("Sum: {}", sum);
-                LOGGER.info("Average: {}", average);
+                LOGGER.info("Max: {}", max.isPresent() ? max.getAsInt() : "N/A");
+                LOGGER.info("Min: {}", min.isPresent() ? min.getAsInt() : "N/A");
+                LOGGER.info("Sum: {}", sum.isPresent() ? sum.getAsLong() : "N/A");
+                LOGGER.info("Average: {}", average.isPresent() ? average.getAsDouble() : "N/A");
                 LOGGER.info(
                         "Bubble sort: {}",
                         Arrays.toString(bubbleSorted.getArray()));
@@ -77,6 +77,7 @@ public class Main {
                 LOGGER.info("");
             } else {
                 LOGGER.error("Invalid data: {}", line);
+                return;
             }
         }
     }

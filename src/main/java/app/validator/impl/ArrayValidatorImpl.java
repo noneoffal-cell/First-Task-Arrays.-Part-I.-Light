@@ -27,7 +27,6 @@ public class ArrayValidatorImpl implements ArrayValidator {
 
     @Override
     public boolean isValid(String data) {
-        LOGGER.info("Validating array data: {}", data);
 
         if (data != null) {
             return checkData(data);
@@ -39,8 +38,8 @@ public class ArrayValidatorImpl implements ArrayValidator {
 
     private boolean checkData(String data) {
         if (data.trim().isEmpty()) {
-            LOGGER.info("Array data is empty");
-            return true;
+            LOGGER.warn("Array data is empty");
+            return false;
         }
 
         Matcher matcher = VALID_DATA_PATTERN.matcher(data);

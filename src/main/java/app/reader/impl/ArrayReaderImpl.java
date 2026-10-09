@@ -18,14 +18,14 @@ public class ArrayReaderImpl implements ArrayReader {
 
     @Override
     public List<String> read(String filePath) throws FileReadingException {
-        Path path = Paths.get(filePath);
+        Path path = Path.of(filePath);
 
         try {
             List<String> lines = Files.readAllLines(path);
             LOGGER.info("File read successfully: {}", filePath);
             return lines;
         } catch (IOException e) {
-            LOGGER.info("Failed to read file: {}", filePath, e);
+            LOGGER.error("Failed to read file: {}", filePath, e);
             throw new FileReadingException(
                     "Cannot read file: " + filePath, e);
         }

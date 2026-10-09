@@ -24,6 +24,7 @@ public class ArrayParserImpl implements ArrayParse {
     @Override
     public int[] parse(String data) throws InvalidArrayDataException {
         LOGGER.info("Parsing array data: {}", data);
+        LOGGER.info("Validating array data: {}", data);
         validateData(data);
 
         if (data.trim().isEmpty()) {

@@ -22,7 +22,7 @@ public class CalculateSumAverageServiceImpl implements CalculateSumAverageServic
             return OptionalLong.empty();
         }
 
-        int sum = 0;
+        long sum = 0;
 
         for (int value : values) {
             sum += value;

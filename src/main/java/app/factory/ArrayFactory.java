@@ -2,5 +2,5 @@ package app.factory;
 
 public interface ArrayFactory<T> {
 
-    T create(int... values);
+    T create(int id, int... values);
 }

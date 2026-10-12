@@ -12,7 +12,7 @@ public class BubbleSortServiceImpl implements ArraySortService {
             LogManager.getLogger(BubbleSortServiceImpl.class);
 
     @Override
-    public IntArray sort(IntArray array) {
+    public int[] sort(IntArray array) {
         LOGGER.info("Starting bubble sort");
         int[] values = array.getArray();
 
@@ -27,6 +27,6 @@ public class BubbleSortServiceImpl implements ArraySortService {
         }
 
         LOGGER.info("Bubble sort completed");
-        return new IntArray(values);
+        return values;
     }
 }

@@ -11,7 +11,7 @@ public class InsertionSortServiceImpl implements ArraySortService {
             LogManager.getLogger(InsertionSortServiceImpl.class);
 
     @Override
-    public IntArray sort(IntArray array) {
+    public int[] sort(IntArray array) {
         LOGGER.info("Starting insertion sort");
         int[] values = array.getArray();
 
@@ -28,6 +28,6 @@ public class InsertionSortServiceImpl implements ArraySortService {
         }
 
         LOGGER.info("Insertion sort completed");
-        return new IntArray(values);
+        return values;
     }
 }

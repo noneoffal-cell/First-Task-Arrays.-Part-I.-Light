@@ -10,9 +10,13 @@ public class IntArrayFactory implements ArrayFactory<IntArray> {
     private static final Logger LOGGER =
             LogManager.getLogger(IntArrayFactory.class);
 
-    @Override
-    public IntArray create(int... values) {
-        LOGGER.info("Created IntArray with {} values", values.length);
-        return new IntArray(values);    // constructor from IntArray
+    public IntArray create(int id, int... values) {
+        LOGGER.info(
+                "Creating IntArray with id {} and {} values",
+                id,
+                values.length
+        );
+
+        return new IntArray(id, values);
     }
 }

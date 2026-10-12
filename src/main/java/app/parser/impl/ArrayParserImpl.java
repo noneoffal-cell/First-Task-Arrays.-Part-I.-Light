@@ -27,7 +27,7 @@ public class ArrayParserImpl implements ArrayParse {
         LOGGER.info("Validating array data: {}", data);
         validateData(data);
 
-        if (data.trim().isEmpty()) {
+        if (data.trim().isBlank()) {
             LOGGER.info("Empty array data");
             return new int[0];
         }

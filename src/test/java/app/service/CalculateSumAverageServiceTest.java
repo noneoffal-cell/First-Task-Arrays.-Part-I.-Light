@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CalculateSumAverageServiceTest {
 
+    private static final int ARRAY_ID = 1;
     private static final int[] VALUES = {5, 2, 8, 1, 9};
     private static final long SUM = 25L;
     private static final double AVERAGE = 5.0;
@@ -22,7 +23,8 @@ class CalculateSumAverageServiceTest {
     @Test
     void calculateSumShouldReturnSumOfValues() {
         // when
-        OptionalLong result = service.calculateSum(new IntArray(VALUES));
+        OptionalLong result =
+                service.calculateSum(new IntArray(ARRAY_ID, VALUES));
 
         // then
         assertTrue(result.isPresent());
@@ -33,7 +35,7 @@ class CalculateSumAverageServiceTest {
     void calculateAverageShouldReturnAverageOfValues() {
         // when
         OptionalDouble result =
-                service.calculateAverage(new IntArray(VALUES));
+                service.calculateAverage(new IntArray(ARRAY_ID, VALUES));
 
         // then
         assertTrue(result.isPresent());
@@ -44,7 +46,7 @@ class CalculateSumAverageServiceTest {
     void calculateSumShouldReturnEmptyForEmptyArray() {
         // when
         OptionalLong result =
-                service.calculateSum(new IntArray());
+                service.calculateSum(new IntArray(ARRAY_ID));
 
         // then
         assertEquals(OptionalLong.empty(), result);
@@ -54,7 +56,7 @@ class CalculateSumAverageServiceTest {
     void calculateAverageShouldReturnEmptyForEmptyArray() {
         // when
         OptionalDouble result =
-                service.calculateAverage(new IntArray());
+                service.calculateAverage(new IntArray(ARRAY_ID));
 
         // then
         assertEquals(OptionalDouble.empty(), result);

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class InsertionSortServiceImplTest {
 
+    private static final int ARRAY_ID = 1;
     private static final int[] VALUES = {5, 2, 8, 1, 9};
     private static final int[] SORTED_VALUES = {1, 2, 5, 8, 9};
 
@@ -17,27 +18,29 @@ class InsertionSortServiceImplTest {
     @Test
     void sortShouldReturnSortedArray() {
         // when
-        IntArray result = service.sort(new IntArray(VALUES));
+        int[] result = service.sort(new IntArray(ARRAY_ID, VALUES));
 
         // then
-        assertArrayEquals(SORTED_VALUES, result.getArray());
+        assertArrayEquals(SORTED_VALUES, result);
     }
 
     @Test
     void sortShouldReturnSameArrayWhenAlreadySorted() {
         // when
-        IntArray result = service.sort(new IntArray(SORTED_VALUES));
+        int[] result = service.sort(
+                new IntArray(ARRAY_ID, SORTED_VALUES)
+        );
 
         // then
-        assertArrayEquals(SORTED_VALUES, result.getArray());
+        assertArrayEquals(SORTED_VALUES, result);
     }
 
     @Test
     void sortShouldReturnEmptyArrayForEmptyArray() {
         // when
-        IntArray result = service.sort(new IntArray());
+        int[] result = service.sort(new IntArray(ARRAY_ID));
 
         // then
-        assertArrayEquals(new int[0], result.getArray());
+        assertArrayEquals(new int[0], result);
     }
 }

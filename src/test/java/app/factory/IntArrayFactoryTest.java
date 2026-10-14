@@ -5,11 +5,13 @@ import app.factory.impl.IntArrayFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class IntArrayFactoryTest {
 
     // given
+    private static final int ARRAY_ID = 1;
     private static final int[] VALUES = {1, 2, 3};
     private static final int[] SINGLE_VALUE = {42};
     private static final int[] NEGATIVE_VALUES = {-5, 0, 7, -1};
@@ -19,9 +21,8 @@ class IntArrayFactoryTest {
 
     @Test
     void createShouldReturnNotNullIntArray() {
-        // given
         // when
-        IntArray actual = factory.create(VALUES);
+        IntArray actual = factory.create(ARRAY_ID, VALUES);
 
         // then
         assertNotNull(actual);
@@ -29,46 +30,38 @@ class IntArrayFactoryTest {
 
     @Test
     void createShouldReturnIntArrayWithGivenValues() {
-        // given
         // when
-        IntArray actual = factory.create(VALUES);
+        IntArray actual = factory.create(ARRAY_ID, VALUES);
 
         // then
-        int[] actualValues = actual.getArray();
-        assertArrayEquals(VALUES, actualValues);
+        assertArrayEquals(VALUES, actual.getArray());
     }
 
     @Test
     void createShouldReturnIntArrayWithSingleValue() {
-        // given
         // when
-        IntArray actual = factory.create(SINGLE_VALUE);
+        IntArray actual = factory.create(ARRAY_ID, SINGLE_VALUE);
 
         // then
-        int[] actualValues = actual.getArray();
-        assertArrayEquals(SINGLE_VALUE, actualValues);
+        assertArrayEquals(SINGLE_VALUE, actual.getArray());
     }
 
     @Test
     void createShouldKeepNegativeValuesAndOrder() {
-        // given
         // when
-        IntArray actual = factory.create(NEGATIVE_VALUES);
+        IntArray actual = factory.create(ARRAY_ID, NEGATIVE_VALUES);
 
         // then
-        int[] actualValues = actual.getArray();
-        assertArrayEquals(NEGATIVE_VALUES, actualValues);
+        assertArrayEquals(NEGATIVE_VALUES, actual.getArray());
     }
 
     @Test
     void createShouldReturnEmptyIntArrayForEmptyValues() {
-        // given
         // when
-        IntArray actual = factory.create(EMPTY_VALUES);
+        IntArray actual = factory.create(ARRAY_ID, EMPTY_VALUES);
 
         // then
-        int[] actualValues = actual.getArray();
-        assertArrayEquals(EMPTY_VALUES, actualValues);
+        assertArrayEquals(EMPTY_VALUES, actual.getArray());
     }
 
     @Test
@@ -77,10 +70,19 @@ class IntArrayFactoryTest {
         int[] values = {1, 2, 3};
 
         // when
-        IntArray actual = factory.create(values);
+        IntArray actual = factory.create(ARRAY_ID, values);
         values[0] = 99;
 
         // then
         assertArrayEquals(VALUES, actual.getArray());
+    }
+
+    @Test
+    void createShouldPreserveGivenId() {
+        // when
+        IntArray actual = factory.create(ARRAY_ID, VALUES);
+
+        // then
+        assertEquals(ARRAY_ID, actual.getId());
     }
 }

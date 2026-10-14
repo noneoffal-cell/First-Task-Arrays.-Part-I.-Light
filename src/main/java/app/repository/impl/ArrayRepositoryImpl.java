@@ -7,12 +7,11 @@ import app.repository.ArrayRepository;
 import app.specification.Specification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import app.observer.RepositoryObserver;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 public class ArrayRepositoryImpl implements ArrayRepository {
 
@@ -24,6 +23,7 @@ public class ArrayRepositoryImpl implements ArrayRepository {
     private final List<IntArray> arrays;
     private final ArrayFactory<IntArray> factory;
     private int nextId;
+    private RepositoryObserver observer;
 
     private ArrayRepositoryImpl(ArrayFactory<IntArray> factory) {
         this.factory = factory;
@@ -46,6 +46,10 @@ public class ArrayRepositoryImpl implements ArrayRepository {
         arrays.add(array);
         nextId++;
 
+        if (observer != null) {
+            observer.onArrayAdded(array);
+        }
+
         LOGGER.info(
                 "Added array to repository with id {}",
                 array.getId()
@@ -55,31 +59,7 @@ public class ArrayRepositoryImpl implements ArrayRepository {
     }
 
     @Override
-    public Optional<IntArray> findById(int id) {
-        for (IntArray array : arrays) {
-            if (array.getId() == id) {
-                return Optional.of(array);
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    @Override
-    public List<IntArray> findByElements(int... values) {
-        List<IntArray> result = new ArrayList<>();
-
-        for (IntArray array : arrays) {
-            if (Arrays.equals(array.getArray(), values)) {
-                result.add(array);
-            }
-        }
-
-        return result;
-    }
-
-    @Override
-    public List<IntArray> query(Specification<IntArray> specification) {
+    public List<IntArray> findBy(Specification<IntArray> specification) {
         List<IntArray> result = new ArrayList<>();
 
         for (IntArray array : arrays) {
@@ -128,6 +108,10 @@ public class ArrayRepositoryImpl implements ArrayRepository {
 
                 arrays.set(i, updatedArray);
 
+                if (observer != null) {
+                    observer.onArrayUpdated(updatedArray);
+                }
+
                 LOGGER.info(
                         "Updated element {} of array with id {}",
                         index,
@@ -149,6 +133,10 @@ public class ArrayRepositoryImpl implements ArrayRepository {
             if (array.getId() == id) {
                 arrays.remove(i);
 
+                if (observer != null) {
+                    observer.onArrayRemoved(id);
+                }
+
                 LOGGER.info(
                         "Array removed from repository with id {}",
                         id
@@ -160,4 +148,9 @@ public class ArrayRepositoryImpl implements ArrayRepository {
 
         LOGGER.warn("Array with id {} was not found", id);
     }
+
+    public void setObserver(RepositoryObserver observer) {
+        this.observer = observer;
+    }
+
 }

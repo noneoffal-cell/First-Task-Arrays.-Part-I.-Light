@@ -13,6 +13,7 @@ class FindMaxMinServiceImplTest {
     private static final int[] VALUES = {5, 2, 8, 1, 9};
     private static final int MAX_VALUE = 9;
     private static final int MIN_VALUE = 1;
+    private static final int ARRAY_ID = 1;
 
     private final FindMaxMinService service =
             new FindMaxMinServiceImpl();
@@ -20,7 +21,9 @@ class FindMaxMinServiceImplTest {
     @Test
     void findMaxShouldReturnMaximumValue() {
         // when
-        OptionalInt result = service.findMax(new IntArray(VALUES));
+        OptionalInt result = service.findMax(
+                new IntArray(ARRAY_ID, VALUES)
+        );
 
         // then
         assertEquals(MAX_VALUE, result.getAsInt());
@@ -29,7 +32,9 @@ class FindMaxMinServiceImplTest {
     @Test
     void findMinShouldReturnMinimumValue() {
         // when
-        OptionalInt result = service.findMin(new IntArray(VALUES));
+        OptionalInt result = service.findMin(
+                new IntArray(ARRAY_ID, VALUES)
+        );
 
         // then
         assertEquals(MIN_VALUE, result.getAsInt());
@@ -38,7 +43,9 @@ class FindMaxMinServiceImplTest {
     @Test
     void findMaxShouldReturnEmptyForEmptyArray() {
         // when
-        OptionalInt result = service.findMax(new IntArray());
+        OptionalInt result = service.findMax(
+                new IntArray(ARRAY_ID)
+        );
 
         // then
         assertEquals(OptionalInt.empty(), result);
@@ -47,7 +54,9 @@ class FindMaxMinServiceImplTest {
     @Test
     void findMinShouldReturnEmptyForEmptyArray() {
         // when
-        OptionalInt result = service.findMin(new IntArray());
+        OptionalInt result = service.findMin(
+                new IntArray(ARRAY_ID)
+        );
 
         // then
         assertEquals(OptionalInt.empty(), result);

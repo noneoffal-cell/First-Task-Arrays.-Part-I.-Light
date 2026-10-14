@@ -10,6 +10,7 @@ public class IntArrayFactory implements ArrayFactory<IntArray> {
     private static final Logger LOGGER =
             LogManager.getLogger(IntArrayFactory.class);
 
+    @Override
     public IntArray create(int id, int... values) {
         LOGGER.info(
                 "Creating IntArray with id {} and {} values",

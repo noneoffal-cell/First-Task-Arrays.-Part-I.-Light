@@ -11,7 +11,6 @@ public class ArrayParserImpl implements ArrayParse {
     private static final Logger LOGGER =
             LogManager.getLogger(ArrayParserImpl.class);
 
-
     private static final String SEPARATOR_REGEX = "[,;\\-]+";
     private static final String SPACE_REGEX = "\\s+";
 
@@ -27,14 +26,14 @@ public class ArrayParserImpl implements ArrayParse {
         LOGGER.info("Validating array data: {}", data);
         validateData(data);
 
-        if (data.trim().isBlank()) {
+        if (data.strip().isBlank()) {
             LOGGER.info("Empty array data");
             return new int[0];
         }
 
         String normalizedData = data.replaceAll(SEPARATOR_REGEX, " ");
-        String trimmedData = normalizedData.trim();
-        String[] parts = trimmedData.split(SPACE_REGEX);
+        String strippedData = normalizedData.strip();
+        String[] parts = strippedData.split(SPACE_REGEX);
 
         LOGGER.info("Array parsed successfully");
         return createValues(parts);

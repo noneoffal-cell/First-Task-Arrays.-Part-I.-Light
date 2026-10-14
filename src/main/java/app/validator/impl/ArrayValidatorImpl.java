@@ -37,7 +37,7 @@ public class ArrayValidatorImpl implements ArrayValidator {
     }
 
     private boolean checkData(String data) {
-        if (data.trim().isEmpty()) {
+        if (data.strip().isBlank()) {
             LOGGER.warn("Array data is empty");
             return true;
         }
